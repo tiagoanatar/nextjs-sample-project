@@ -101,6 +101,28 @@ a {
   text-decoration: none;
 }
 
+h1 {
+  margin-bottom: 2rem;
+}
+
+button {
+  background-color: #01110A;
+  border: 0;
+  box-shadow: 0 0 2px 1px #909090;
+  border-radius: 10px;
+  color: white;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.5s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+button:hover {
+  background-color: #222;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

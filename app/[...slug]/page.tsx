@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import styles from "./page.module.scss";
 import Image from "next/image";
-import { increment, decrement } from "../GlobalRedux/slices/counterSlice";
+import { addToCart } from "../GlobalRedux/slices/cartSlice";
 import type { RootState } from "../GlobalRedux/store";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -24,7 +24,7 @@ interface Params {
 }
 
 export default function Product({ params }: Params) {
-  const count = useSelector((state: RootState) => state.counter.value);
+  const cart = useSelector((state: RootState) => state.cart.products);
   const dispatch = useDispatch();
 
   const [product, setProducts] = useState<SingleProduct>();
@@ -56,7 +56,7 @@ export default function Product({ params }: Params) {
 
             <button
               className={styles.button}
-              onClick={() => dispatch(increment())}
+              onClick={() => dispatch(addToCart({ ...product }))}
             >
               <ShoppingBag size={20} strokeWidth={1} color={"white"} /> Add to
               cart

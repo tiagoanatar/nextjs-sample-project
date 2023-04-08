@@ -1,4 +1,3 @@
-
 .headerContainer {
   display: flex;
   justify-content: space-between;
@@ -11,6 +10,12 @@
 .headerContainer section {
   display: flex;
   align-items: center;
+}
+
+.headerContainer a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .headerCompanyLogo {

@@ -1,27 +1,25 @@
-'use client';
+"use client";
 
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface CounterState {
-    value: number
+  value: "USD" | "EUR" | "JPY" | "GBP";
 }
 
 const initialState: CounterState = {
-    value: 0
-}
+  value: "USD",
+};
 
 export const counterSlice = createSlice({
-    name: 'counter',
-    initialState,
-    reducers: {
-        increment: (state) => { state.value += 1 },
-        decrement: (state) => { state.value -= 1 },
-        incrementByAmount: (state, action) => {
-            state.value += action.payload;
-        }
-    }
-})
+  name: "currency",
+  initialState,
+  reducers: {
+    setCurrency: (state, action) => {
+      state.value = action.payload;
+    },
+  },
+});
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { setCurrency } = counterSlice.actions;
 
 export default counterSlice.reducer;
