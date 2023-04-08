@@ -1,6 +1,7 @@
 "use client";
 
 import styles from "./page.module.css";
+import Link from "next/link";
 
 import type { RootState } from "./GlobalRedux/store";
 import { useSelector, useDispatch } from "react-redux";
@@ -29,6 +30,7 @@ export default function Home() {
       >
         Increment by 2
       </button>
+      <Link href="/products">Products</Link>
     </main>
   );
 }
