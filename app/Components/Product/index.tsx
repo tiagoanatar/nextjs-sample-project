@@ -6,7 +6,7 @@ import Image from "next/image";
 export default function Product(data: SingleProduct) {
   return (
     <article className={styles.productContainer}>
-      <Link href={`/${data.id}`}><h2>{data.title}</h2>
+      <Link href={`/products/${data.id}/${data.title.replaceAll(" ", "-").toLowerCase()}`}><h2>{data.title}</h2>
         <section className={styles.productImageContainer}>
           <Image
             src={data.image}
@@ -15,9 +15,9 @@ export default function Product(data: SingleProduct) {
             height={300}
           />
         </section>
-        <p>
+        <section>
           <data value="50">$ {data.price}</data>
-        </p>
+        </section>
       </Link>
     </article>
   );

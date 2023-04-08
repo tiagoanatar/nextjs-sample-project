@@ -6,8 +6,21 @@
   min-height: 100vh;
 }
 
+.productImage {
+  padding: 2rem;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+.productDetails {
+  padding: 2rem;
+}
+
+.productDescription {
+  margin-bottom: 2rem;
+}
+
 .button {
-  margin: 30px;
   padding: 8px 20px;
   background-color: #01110A;
   border: 0;
@@ -16,15 +29,14 @@
   color: white;
   font-size: 18px;
   font-weight: 900;
+  cursor: pointer;
+  transition: 0.5s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.productImage {
-  padding: 2rem;
-  border: 1px solid #ccc;
-  background-color: white;
-}
-
-.productDescription {
-  padding: 2rem;
+.button:hover {
+  background-color: #222;
 }
 

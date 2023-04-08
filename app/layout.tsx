@@ -1,6 +1,6 @@
 import './globals.scss'
-
 import { Providers } from './GlobalRedux/provider';
+import Header from "./Components/Header";
 
 export default function RootLayout({
   children,
@@ -16,6 +16,7 @@ export default function RootLayout({
       <head />
       <body>
         <Providers>
+          <Header />
           {children}
         </Providers>
       </body>
