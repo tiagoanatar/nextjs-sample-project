@@ -103,12 +103,10 @@ export default function Header() {
   return (
     <section className={styles.container}>
       <section className={styles.logo}>
-        <Link href="/">
-          <BoxModel size={48} strokeWidth={1} color={"white"} />
-          <section>
-            <span>COMPANY</span>NAME
-          </section>
-        </Link>
+        <BoxModel size={48} strokeWidth={1} color={"white"} />
+        <section>
+          <span>COMPANY</span>NAME
+        </section>
       </section>
       <section>
         <section className={`${styles.user} ${styles.hover}`}>

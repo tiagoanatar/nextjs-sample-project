@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from 'next/router';
 import styles from "./page.module.scss";
 import Image from "next/image";
 import { ShoppingBag, ArrowNarrowLeft } from "tabler-icons-react";
@@ -25,17 +26,20 @@ export default function Product() {
     }, 0);
   }
 
+  const router = useRouter();
+  const handleClick = () => {
+    router.push('/');
+  };
+
   return (
     <main>
       <section className={styles.title}>
         <h1>
           <ShoppingBag size={34} strokeWidth={1} /> Shopping Cart
         </h1>
-        <Link href="/">
-          <button className={styles.button}>
+          <button onClick={handleClick} className={styles.button}>
             <ArrowNarrowLeft size={20} strokeWidth={1} /> Back to Products
           </button>
-        </Link>
       </section>
       {products.length > 0 && cart.length > 0 ? (
         products.map((item, index) => {
