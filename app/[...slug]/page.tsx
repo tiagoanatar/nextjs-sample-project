@@ -24,7 +24,7 @@ interface Params {
 }
 
 export default function Product({ params }: Params) {
-  const cart = useSelector((state: RootState) => state.cart.products);
+  const currency = useSelector((state: RootState) => state.currency.value);
   const dispatch = useDispatch();
 
   const [product, setProducts] = useState<SingleProduct>();
@@ -42,7 +42,7 @@ export default function Product({ params }: Params) {
     <main className={styles.main}>
       {product ? (
         <>
-          <section className={styles.productImage}>
+          <section className={styles.image}>
             <Image
               src={product.image}
               alt={product.description}
@@ -50,9 +50,12 @@ export default function Product({ params }: Params) {
               height={300}
             />
           </section>
-          <section className={styles.productDetails}>
+          <section className={styles.details}>
             <h1>{product.title}</h1>
-            <p className={styles.productDescription}>{product.description}</p>
+
+            <p className={styles.price}>{currency} {product.price}</p>
+
+            <p className={styles.description}>{product.description}</p>
 
             <button
               className={styles.button}

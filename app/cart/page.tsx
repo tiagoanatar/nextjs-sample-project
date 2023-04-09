@@ -4,6 +4,7 @@ import styles from "./page.module.scss";
 import Image from "next/image";
 import { ShoppingBag } from "tabler-icons-react";
 
+// store
 import { removeFromCart } from "../GlobalRedux/slices/cartSlice";
 import type { RootState } from "../GlobalRedux/store";
 import { useSelector, useDispatch } from "react-redux";

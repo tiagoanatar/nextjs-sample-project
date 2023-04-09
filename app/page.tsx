@@ -29,7 +29,7 @@ export default function Home() {
       <h1>Products</h1>
       {products.length > 0 ? (
         <section className={styles.productGrid}>
-          {products.map((item: SingleProduct) => (
+          {products.slice(0,1).map((item: SingleProduct) => (
             <Product {...item} key={item.id} />
           ))}
         </section>

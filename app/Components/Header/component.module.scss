@@ -1,4 +1,4 @@
-.headerContainer {
+.container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,30 +7,65 @@
   padding: 2rem;
 }
 
-.headerContainer section {
+.container section {
   display: flex;
   align-items: center;
 }
 
-.headerContainer a {
+.container a {
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
-.headerCompanyLogo {
+.logo {
   gap: 1rem;
   font-size: 1.7rem;
   color: #c3c1c1;
 }
 
-.headerCompanyLogo span {
+.logo span {
   color:aqua;
 }
 
-.headerShoppingBag {
+.cart {
   background-color: #000;
   padding: 10px;
   gap: 10px;
   font-size: 1.4rem;
+}
+
+.currency {
+  background-color: #222;
+  padding: 10px;
+  gap: 10px;
+  font-size: 1.4rem;
+  position: relative;
+}
+
+.currencySelector{
+  position: absolute;
+  margin: 135px 200px 0;
+  background-color: #222;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 1rem;
+  z-index: 1;
+  transition: 0.5s;
+  opacity: 0;
+}
+
+.currency:hover .currencySelector {
+  margin-left: 0;
+  opacity: 1;
+}
+
+.currencySelector:hover {
+  margin-left: 0;
+  opacity: 1;
+}
+
+.button {
+  padding: 6px 12px;
+  font-size: 9px;
+  margin-bottom: 5px;
 }

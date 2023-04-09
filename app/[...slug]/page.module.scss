@@ -1,26 +1,48 @@
 .main {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   padding: 6rem;
   min-height: 100vh;
 }
 
-.productImage {
+.image {
   padding: 2rem;
   border: 1px solid #ccc;
   background-color: white;
+  display: flex;
+  justify-content: center;
 }
 
-.productDetails {
+.details {
   padding: 2rem;
 }
 
-.productDescription {
+.description {
   margin-bottom: 2rem;
 }
 
 .button {
   padding: 8px 20px;
   font-size: 18px;
+}
+
+.price {
+  display: inline-block;
+  padding: 1rem;
+  background-color: aliceblue;
+  margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 1rem;
+  }
+
+  .image {
+    width: 100%;
+  }
+  
 }

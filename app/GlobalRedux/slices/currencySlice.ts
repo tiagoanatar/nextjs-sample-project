@@ -2,8 +2,10 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 
+export type Currencies = "USD" | "EUR" | "JPY" | "GBP"
+
 export interface CounterState {
-  value: "USD" | "EUR" | "JPY" | "GBP";
+  value: Currencies;
 }
 
 const initialState: CounterState = {
