@@ -3,12 +3,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { SingleProduct } from "@/types";
 
-export interface CounterState {
-    products: SingleProduct[]
+export interface CartState {
+    value: number[]
 }
 
-const initialState: CounterState = {
-    products: []
+const initialState: CartState = {
+    value: []
 }
 
 export const cartSlice = createSlice({
@@ -16,11 +16,11 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action) => { 
-            state.products.push(action.payload) 
+            state.value.push(action.payload) 
         },
         removeFromCart: (state, action) => { 
-            state.products = state.products.filter((item) => {
-                if (item.id !== action.payload){
+            state.value = state.value.filter((item) => {
+                if (item !== action.payload){
                     return item
                 }
             })

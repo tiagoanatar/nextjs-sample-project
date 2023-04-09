@@ -3,19 +3,14 @@
 import { useState, useEffect } from "react";
 import styles from "./page.module.scss";
 import Image from "next/image";
-import { addToCart } from "../GlobalRedux/slices/cartSlice";
-import type { RootState } from "../GlobalRedux/store";
-import { useSelector, useDispatch } from "react-redux";
-
 import { SingleProduct } from "@/types";
 import Loading from "../Components/Loading";
 import { ShoppingBag } from "tabler-icons-react";
 
-async function fetchProductById(id: string) {
-  const res = await fetch(`https://fakestoreapi.com/products/${id}`);
-  const data = await res.json();
-  return data;
-}
+// store
+import { addToCart } from "../GlobalRedux/slices/cartSlice";
+import type { RootState } from "../GlobalRedux/store";
+import { useSelector, useDispatch } from "react-redux";
 
 interface Params {
   params: {
@@ -24,19 +19,20 @@ interface Params {
 }
 
 export default function Product({ params }: Params) {
-  const currency = useSelector((state: RootState) => state.currency.value);
+  const currency = useSelector((state: RootState) => state.currency.current);
+  const productsStore = useSelector((state: RootState) => state.products.value);
   const dispatch = useDispatch();
 
-  const [product, setProducts] = useState<SingleProduct>();
+  const [product, setProduct] = useState<SingleProduct>();
 
   useEffect(() => {
     async function getProducts() {
-      const data = await fetchProductById(params.slug[1]);
-      setProducts(data);
+      const data = productsStore.filter((item) => item.id === Number(params.slug[1]))
+      setProduct(data[0]);
     }
 
     getProducts();
-  }, [params.slug]);
+  }, [params.slug, productsStore]);
 
   return (
     <main className={styles.main}>
@@ -59,7 +55,7 @@ export default function Product({ params }: Params) {
 
             <button
               className={styles.button}
-              onClick={() => dispatch(addToCart({ ...product }))}
+              onClick={() => dispatch(addToCart(product.id))}
             >
               <ShoppingBag size={20} strokeWidth={1} color={"white"} /> Add to
               cart

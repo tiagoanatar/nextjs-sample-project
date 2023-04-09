@@ -2,14 +2,16 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 
-export type Currencies = "USD" | "EUR" | "JPY" | "GBP"
+export type Currencies = "USD" | "EUR" | "JPY" | "GBP" | string;
 
-export interface CounterState {
-  value: Currencies;
+export interface CurrencyState {
+  current: Currencies;
+  old: Currencies
 }
 
-const initialState: CounterState = {
-  value: "USD",
+const initialState: CurrencyState = {
+  current: "USD",
+  old: ''
 };
 
 export const counterSlice = createSlice({
@@ -17,7 +19,8 @@ export const counterSlice = createSlice({
   initialState,
   reducers: {
     setCurrency: (state, action) => {
-      state.value = action.payload;
+      state.old = state.current
+      state.current = action.payload;
     },
   },
 });

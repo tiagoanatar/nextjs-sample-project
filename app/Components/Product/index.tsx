@@ -16,38 +16,7 @@ export default function Product(data: SingleProduct) {
     .toLowerCase();
 
   // currency conversion
-  const currency = useSelector((state: RootState) => state.currency.value);
-  const [price, setPrice] = useState({
-    currentExchange: currency,
-    value: data.price,
-  });
-
-  const currencyConversion = useCallback(async () => {
-    const myHeaders = new Headers();
-    myHeaders.append("apikey", "P2VuvnnIwkfB5GiRu4mpF4kTJITXEoY3");
-
-    const requestOptions = {
-      method: "GET",
-      redirect: "follow" as const,
-      headers: myHeaders,
-    };
-
-    const res = await fetch(
-      `https://api.apilayer.com/exchangerates_data/convert?to=${currency}&from=${price.currentExchange}&amount=${price.value}`,
-      requestOptions
-    );
-    const data = await res.json();
-    setPrice({
-      currentExchange: currency,
-      value: data.result,
-    })
-  }, [currency, price]);
-
-  useEffect(() => {
-    if (currency !== price.currentExchange) {
-      currencyConversion()
-    }
-  }, [currency, price.currentExchange, currencyConversion]);
+  const currency = useSelector((state: RootState) => state.currency.current);
 
   return (
     <article className={styles.productContainer}>
@@ -61,7 +30,7 @@ export default function Product(data: SingleProduct) {
             height={300}
           />
         </section>
-        <section className={styles.productPrice}>{currency} {price.value.toFixed(2)}</section>
+        <section className={styles.productPrice}>{currency} {data.price}</section>
       </Link>
     </article>
   );

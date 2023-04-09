@@ -17,10 +17,11 @@
   background-color: aliceblue;
 }
 
-.cartRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr 1fr 1fr; 
+  justify-items: center; 
+  align-items: center; 
   padding: 1rem;
   background-color: aliceblue;
   margin-bottom: 1rem;

@@ -1,25 +1,78 @@
 "use client";
 
+import { useEffect, useCallback } from "react";
 import Link from "next/link";
 import styles from "./component.module.scss";
 import { ShoppingBag, BoxModel, CurrencyDollar } from "tabler-icons-react";
 
-// Store
+// store
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../../GlobalRedux/store";
-import {
-  CounterState,
-  setCurrency,
-} from "../../GlobalRedux/slices/currencySlice";
+import { setCurrency } from "../../GlobalRedux/slices/currencySlice";
+import { addProducts } from "../../GlobalRedux/slices/productsSlice";
 
 const currencySet = ["USD", "EUR", "JPY", "GBP"];
 
-function CurrencySelector(currency: CounterState) {
+interface RootObject {
+  date: string;
+  info: Info;
+  query: Query;
+  result: number;
+  success: boolean;
+}
+
+interface Query {
+  amount: number;
+  from: string;
+  to: string;
+}
+
+interface Info {
+  rate: number;
+  timestamp: number;
+}
+
+function CurrencySelector() {
+  const currency = useSelector((state: RootState) => state.currency);
   const dispatch = useDispatch();
+  const productsStore = useSelector((state: RootState) => state.products.value);
+
+  async function currencyConversion(value: number) {
+    const myHeaders = new Headers();
+    myHeaders.append("apikey", "tYbEaPt44FgmaoM4GzckFoRqWbF4EQbU");
+
+    const requestOptions = {
+      method: "GET",
+      redirect: "follow" as const,
+      headers: myHeaders,
+    };
+
+    const res = await fetch(
+      `https://api.apilayer.com/exchangerates_data/convert?to=${currency.current}&from=${currency.old}&amount=${value}`,
+      requestOptions
+    );
+    const data: RootObject = await res.json();
+    return data.result;
+  }
+
+  const updateProducts = async () => {
+    const newProducts = [];
+    for (const item of productsStore) {
+      const conversion = await currencyConversion(item.price);
+      newProducts.push({ ...item, price: conversion.toFixed(2) });
+    }
+    dispatch(addProducts(newProducts));
+    console.log(newProducts);
+  };
+
+  useEffect(() => {
+    updateProducts();
+  }, [currency]);
+
   return (
     <div className={styles.currencySelector}>
       {currencySet.map((item) => {
-        if (item !== currency.value) {
+        if (item !== currency.current) {
           return (
             <button
               key={item}
@@ -36,7 +89,7 @@ function CurrencySelector(currency: CounterState) {
 }
 
 export default function Header() {
-  const cart = useSelector((state: RootState) => state.cart.products);
+  const cart = useSelector((state: RootState) => state.cart.value);
   const currency = useSelector((state: RootState) => state.currency);
   return (
     <section className={styles.container}>
@@ -57,8 +110,8 @@ export default function Header() {
         </section>
         <section className={styles.currency}>
           <CurrencyDollar size={28} strokeWidth={1} color={"white"} />
-          {currency.value}
-          <CurrencySelector {...currency} />
+          {currency.current}
+          <CurrencySelector />
         </section>
       </section>
     </section>

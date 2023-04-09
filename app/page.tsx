@@ -5,31 +5,27 @@ import { SingleProduct } from "@/types";
 import Loading from "./Components/Loading";
 import Product from "./Components/Product";
 
-async function fetchProducts() {
-  const res = await fetch("https://fakestoreapi.com/products");
-  const data = await res.json();
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  return data;
-}
+// store
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "./GlobalRedux/store";
+import { fetchProducts } from "./GlobalRedux/slices/productsSlice";
 
 export default function Home() {
-  const [products, setProducts] = useState<SingleProduct[]>([]);
+  const dispatch = useDispatch<any>();
+  const productsStore = useSelector((state: RootState) => state.products.value);
 
   useEffect(() => {
-    async function getProducts() {
-      const data = await fetchProducts();
-      setProducts(data);
+    if (productsStore.length === 0){
+      dispatch(fetchProducts());
+      console.log("initial state")
     }
-
-    getProducts();
-  }, []);
-
+  }, [dispatch, productsStore]);
   return (
     <main className={styles.main}>
       <h1>Products</h1>
-      {products.length > 0 ? (
+      {productsStore.length > 0 ? (
         <section className={styles.productGrid}>
-          {products.slice(0,1).map((item: SingleProduct) => (
+          {productsStore.map((item: SingleProduct) => (
             <Product {...item} key={item.id} />
           ))}
         </section>
