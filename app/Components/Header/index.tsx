@@ -1,15 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import styles from "./component.module.scss";
-import { ShoppingBag, BoxModel, CurrencyDollar } from "tabler-icons-react";
+import { ShoppingBag, BoxModel, CurrencyDollar, UserCircle } from "tabler-icons-react";
 
 // store
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../../GlobalRedux/store";
-import { setCurrency } from "../../GlobalRedux/slices/currencySlice";
+import { setCurrency, setCurrencyLoading } from "../../GlobalRedux/slices/currencySlice";
 import { addProducts } from "../../GlobalRedux/slices/productsSlice";
+import { fetchProducts } from "../../GlobalRedux/slices/productsSlice";
 
 const currencySet = ["USD", "EUR", "JPY", "GBP"];
 
@@ -34,7 +36,7 @@ interface Info {
 
 function CurrencySelector() {
   const currency = useSelector((state: RootState) => state.currency);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
   const productsStore = useSelector((state: RootState) => state.products.value);
 
   async function currencyConversion(value: number) {
@@ -57,17 +59,24 @@ function CurrencySelector() {
 
   const updateProducts = async () => {
     const newProducts = [];
+    dispatch(setCurrencyLoading(true));
     for (const item of productsStore) {
       const conversion = await currencyConversion(item.price);
       newProducts.push({ ...item, price: conversion.toFixed(2) });
     }
     dispatch(addProducts(newProducts));
-    console.log(newProducts);
+    dispatch(setCurrencyLoading(false));
   };
 
   useEffect(() => {
     updateProducts();
-  }, [currency]);
+  }, [currency.current]);
+
+  useEffect(() => {
+    if (productsStore.length === 0){
+      dispatch(fetchProducts());
+    }
+  }, [dispatch, productsStore]);
 
   return (
     <div className={styles.currencySelector}>
@@ -102,13 +111,17 @@ export default function Header() {
         </Link>
       </section>
       <section>
-        <section className={styles.cart}>
+        <section className={`${styles.user} ${styles.hover}`}>
+          <UserCircle size={28} strokeWidth={1} color={"white"} />
+          User Name
+        </section>
+        <section className={`${styles.cart} ${styles.hover}`}>
           <Link href="/cart">
             <ShoppingBag size={28} strokeWidth={1} color={"white"} />{" "}
             {cart.length}
           </Link>
         </section>
-        <section className={styles.currency}>
+        <section className={`${styles.currency} ${styles.hover}`}>
           <CurrencyDollar size={28} strokeWidth={1} color={"white"} />
           {currency.current}
           <CurrencySelector />

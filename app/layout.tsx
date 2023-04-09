@@ -1,6 +1,12 @@
 import './globals.scss'
 import { Providers } from './GlobalRedux/provider';
 import Header from "./Components/Header";
+import Footer from "./Components/Footer";
+
+export const metadata = {
+  title: 'Sample Site',
+  description: 'Site description here.'
+};
 
 export default function RootLayout({
   children,
@@ -18,6 +24,7 @@ export default function RootLayout({
         <Providers>
           <Header />
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>

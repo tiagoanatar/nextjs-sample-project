@@ -1,9 +1,6 @@
 .main {
-  display: flex;
-  justify-content: center;
-  align-items: start;
-  padding: 6rem;
-  min-height: 100vh;
+  flex-direction: row;
+  align-items: start
 }
 
 .image {
@@ -27,22 +24,30 @@
   font-size: 18px;
 }
 
-.price {
-  display: inline-block;
-  padding: 1rem;
-  background-color: aliceblue;
+.amount {
   margin-bottom: 2rem;
 }
 
-@media screen and (max-width: 768px) {
-  .main {
-    flex-direction: column;
-    flex-wrap: wrap;
-    padding: 1rem;
-  }
+.currency {
+  display: inline-block;
+  padding: 1rem;
+  background-color: antiquewhite;
+}
 
+.price {
+  display: inline-block;
+  padding: 1rem;
+  background-color: #333;
+  color: #fff;
+  transition: 1s;
+}
+
+.loading {
+  opacity: 0.1;
+}
+
+@media screen and (max-width: 768px) {
   .image {
     width: 100%;
   }
-  
 }

@@ -1,15 +1,14 @@
-.main {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 6rem;
-  min-height: 100vh;
-}
-
 .title {
   display: flex;
-  align-items: center;
+  width: 100%;
+  justify-content: space-between;
   margin-bottom: 2rem;
+  border-bottom: 3px solid aliceblue;
+}
+
+.title h1 {
+  display: flex;
+  align-items: center;
 }
 
 .alert {
@@ -19,13 +18,15 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 5fr 1fr 1fr 1fr; 
+  grid-template-columns: 1fr 5fr 1fr 1fr 1fr 1fr; 
   justify-items: center; 
   align-items: center; 
   padding: 1rem;
   background-color: aliceblue;
   margin-bottom: 1rem;
   width: 100%;
+  text-align: center;
+  gap: 10px
 }
 
 .button {
@@ -33,3 +34,16 @@
   font-size: 11px;
 }
 
+.price {
+  transition: 1s;
+}
+
+.loading {
+  opacity: 0.1;
+}
+
+@media screen and (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr; 
+  }
+}

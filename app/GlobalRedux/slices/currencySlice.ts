@@ -6,12 +6,14 @@ export type Currencies = "USD" | "EUR" | "JPY" | "GBP" | string;
 
 export interface CurrencyState {
   current: Currencies;
-  old: Currencies
+  old: Currencies;
+  loading: boolean;
 }
 
 const initialState: CurrencyState = {
   current: "USD",
-  old: ''
+  old: '',
+  loading: false,
 };
 
 export const counterSlice = createSlice({
@@ -22,9 +24,12 @@ export const counterSlice = createSlice({
       state.old = state.current
       state.current = action.payload;
     },
+    setCurrencyLoading: (state, action) => {
+      state.loading = action.payload;
+    }
   },
 });
 
-export const { setCurrency } = counterSlice.actions;
+export const { setCurrency, setCurrencyLoading } = counterSlice.actions;
 
 export default counterSlice.reducer;

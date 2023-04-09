@@ -18,8 +18,7 @@ export interface ProductsState {
   export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
     const response = await fetch('https://fakestoreapi.com/products');
     const data = await response.json();
-    console.log("thunk");
-    return data.slice(0,4);
+    return data.slice(0,9);
   });
 
 export const productsSlice = createSlice({

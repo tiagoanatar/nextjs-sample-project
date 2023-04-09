@@ -16,21 +16,29 @@ export default function Product(data: SingleProduct) {
     .toLowerCase();
 
   // currency conversion
-  const currency = useSelector((state: RootState) => state.currency.current);
+  const currency = useSelector((state: RootState) => state.currency);
 
   return (
-    <article className={styles.productContainer}>
+    <article className={styles.container}>
       <Link href={`/products/${data.id}/${productSlug}`}>
-        <h2>{data.title}</h2>
-        <section className={styles.productImageContainer}>
+        <section className={styles.spacer}>
+          <section className={styles.title}>
+            <h2>{data.title}</h2>
+          </section>
+        </section>
+        <section className={styles.image}>
           <Image
             src={data.image}
             alt={data.description}
             width={300}
             height={300}
+            priority={true}
           />
         </section>
-        <section className={styles.productPrice}>{currency} {data.price}</section>
+        <section className={styles.amount}>
+          <span className={styles.currency}>{currency.current}</span>
+          <span className={`${styles.price} ${currency.loading ? styles.loading : null}`}>{data.price}</span>
+        </section>
       </Link>
     </article>
   );
