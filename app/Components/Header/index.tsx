@@ -41,7 +41,7 @@ function CurrencySelector() {
 
   async function currencyConversion(value: number) {
     const myHeaders = new Headers();
-    myHeaders.append("apikey", "tYbEaPt44FgmaoM4GzckFoRqWbF4EQbU");
+    myHeaders.append("apikey", "MlyAjOiILYr8zussOOyXufEo87fhuvHv");
 
     const requestOptions = {
       method: "GET",
