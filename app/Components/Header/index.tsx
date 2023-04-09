@@ -100,13 +100,17 @@ function CurrencySelector() {
 export default function Header() {
   const cart = useSelector((state: RootState) => state.cart.value);
   const currency = useSelector((state: RootState) => state.currency);
+
+  
   return (
     <section className={styles.container}>
       <section className={styles.logo}>
-        <BoxModel size={48} strokeWidth={1} color={"white"} />
-        <section>
-          <span>COMPANY</span>NAME
-        </section>
+        <Link href="/products">
+          <BoxModel size={48} strokeWidth={1} color={"white"} />
+          <section>
+            <span>COMPANY</span>NAME
+          </section>
+        </Link>
       </section>
       <section>
         <section className={`${styles.user} ${styles.hover}`}>
